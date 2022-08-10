@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+html {
+    margin: 0;
+    font-size: 62.5%;
+    font-family: Inter, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.app {
+    display: flex;
+    justify-content: center;
+}
+
+.breedsList {
+    display: flex;
+    gap: .125rem;
+    width: 48rem;
+    flex-direction: column;
+    font-size: 1.6rem;
+}
+
+.listItem {
+    border: none;
+    background-color: transparent;
+    padding: 1.6rem;
+    text-align: left;
+    cursor: pointer;
+    color: #777;
+    border-radius: .5rem;
+    transition: all .3s ease;
+}
+
+.listItem:hover {
+    color: #333;
+    background-color: white;
+    box-shadow: 0 .2rem .8rem rgba(0, 0, 0, .15);
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, .15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalBody {
+    width: 48rem;
+    border-radius: .5rem;
+    background-color: white;
+    box-shadow: 0 .2rem 1.6rem rgba(0, 0, 0, .15);
+}
+
+.modalBodyHeader {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: .8rem;
+    border-bottom: 1px solid #eee;
+}
+
+.modalBodyHeader > button {
+    width: 2.4rem;
+    height: 2.4rem;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: #dd0000;
+    padding: 0;
+    margin: 0;
+}
+
+.modalBodyContent {
+    padding: .8rem;
+}
+
+.currentImage > img,
+.thumbnail > img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.currentImage {
+    overflow: hidden;
+    height: 30vh;
+    margin-bottom: 1rem;
+}
+
+.thumbnail {
+    opacity: .5;
+    max-height: 10rem;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.thumbnail:hover {
+    opacity: 1;
+}
+
+.thumbnails {
+    display: grid;
+    gap: .2rem;
+    grid-template-columns: repeat(4, 1fr);
+}
