@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion"
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 const CloseIcon = () => {
@@ -10,7 +11,13 @@ const CloseIcon = () => {
     )
 }
 
-const Modal = ({ loading, opened, onCloseReq, title, modalImage, randomBreedImages, onImageChangeReq }) => {
+const Modal = ({ opened, onCloseReq, title, modalImage, randomBreedImages, onImageChangeReq }) => {
+    const [ currentOne, setCurrentOne ] = useState(null);
+    const [ randomImages, setRandomImages ] = useState([]);
+
+    useEffect(() => setCurrentOne(modalImage), [modalImage]);
+    useEffect(() => setRandomImages(randomBreedImages), [randomBreedImages]);
+
     return (
         <AnimatePresence exitBeforeEnter>
             {opened && (
@@ -28,18 +35,24 @@ const Modal = ({ loading, opened, onCloseReq, title, modalImage, randomBreedImag
                     >
                         <div className="modalBodyHeader">
                             <div className="modalBodyHeaderTitle">{title}</div>
-                            <button onClick={onCloseReq}>
+                            <button 
+                                onClick={() => {
+                                    onCloseReq();
+                                    setCurrentOne(null);
+                                    setRandomImages([]);
+                                }}
+                            >
                                 <CloseIcon />
                             </button>
                         </div>
 
                         <div className="modalBodyContent">
                             <div className="currentImage">
-                                <img src={modalImage} alt={title} />
+                                {currentOne && <img src={currentOne} alt={title} />}
                             </div>
 
                             <div className="thumbnails">
-                                {randomBreedImages && randomBreedImages.map((image) => (<div className="thumbnail" key={uuidv4()} onClick={() => onImageChangeReq(image)}><img src={image} alt={title} /></div>))}
+                                {randomImages && randomImages.map((image) => (<div className={`thumbnail${currentOne === image ? " current" : ""}`} key={uuidv4()} onClick={() => onImageChangeReq(image)}><img src={image} alt={title} /></div>))}
                             </div>
                         </div>
                     </motion.div>
