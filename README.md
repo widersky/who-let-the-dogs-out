@@ -1,3 +1,9 @@
+# Stack
+
+* Beloved [ViteJS](https://vitejs.dev) with ReactJS config
+* [Framer Motion](https://www.framer.com/motion/) for Modal animation
+* `uuid` NPM package for unique keys generation
+
 # Before party
 
 I've used Yarn here so if you are using Node 16.10+ and need to play with this piece of code you need to enable Yarn by invoking command:
