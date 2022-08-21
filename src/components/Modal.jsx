@@ -10,7 +10,7 @@ const CloseIcon = () => {
     )
 }
 
-const Modal = ({ opened, onCloseReq, title, modalImage, randomBreedImages, onImageChangeReq }) => {
+const Modal = ({ loading, opened, onCloseReq, title, modalImage, randomBreedImages, onImageChangeReq }) => {
     return (
         <AnimatePresence exitBeforeEnter>
             {opened && (

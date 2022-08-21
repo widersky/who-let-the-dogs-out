@@ -15,7 +15,6 @@ const List = () => {
     const [ randomBreedImages, setRandomBreedImages ] = useState(null);
     const [ modalImage, setModalimage ] = useState(null);
     const [ search, setSearch ] = useState('');
-    const [ indexLetter, setIndexLetter ] = useState('');
 
 
     // Get every breed available
@@ -55,6 +54,8 @@ const List = () => {
     // Get random dog image from randomBreedImages state
     const randomizeImage = () => setModalimage(randomBreedImages[Math.floor(Math.random() * randomBreedImages.length)]);
 
+
+    // Get random breed image
     useEffect(() => {
         randomBreedImages && randomizeImage();
     }, [randomBreedImages]);
@@ -68,7 +69,7 @@ const List = () => {
 
     // And breed images on every selectedBreed change
     useEffect(() => {
-        selectedBreed !== null && getBreedImages();
+        selectedBreed && getBreedImages();
     }, [selectedBreed]);
 
 
