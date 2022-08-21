@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
+:root {
+    --lightBackground: #f9f9f9;
+}
+
 html {
     margin: 0;
     font-size: 62.5%;
@@ -13,15 +17,75 @@ img {
 
 .app {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+}
+
+.banner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3.2rem;
+}
+
+.bannerEmoji {
+    font-size: 5rem;
+    margin: 1rem 0;
 }
 
 .breedsList {
     display: flex;
-    gap: .125rem;
+    gap: .2rem;
     width: 48rem;
     flex-direction: column;
     font-size: 1.6rem;
+}
+
+.searchField {
+    border-radius: 1rem;
+    border: 1px solid transparent;
+    transition: all .3s ease;
+    background-color: var(--lightBackground);
+    margin-bottom: 1.6rem;
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 1.6rem;
+    align-items: center;
+}
+
+.searchField:focus-within {
+    border-color: #ddd;
+}
+
+.searchField > input {
+    padding: .6rem;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+}
+
+.searchField > input:focus {
+    border: none;
+    outline: none;
+}
+
+.listItemWrapper {
+    background-color: var(--lightBackground);
+    border-radius: 1rem;
+    padding: .4rem;
+}
+
+.listSubItemsWrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.divider {
+    border-bottom: 1px dotted #ddd;
+    margin: .4rem;
 }
 
 .listItem {
@@ -30,6 +94,7 @@ img {
     padding: 1.6rem;
     text-align: left;
     cursor: pointer;
+    width: 100%;
     color: #777;
     border-radius: .5rem;
     transition: all .3s ease;
@@ -63,7 +128,10 @@ img {
 
 .modalBodyHeader {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
     padding: .8rem;
     border-bottom: 1px solid #eee;
 }
@@ -101,10 +169,14 @@ img {
     max-height: 10rem;
     cursor: pointer;
     transition: all .3s ease;
+    position: relative;
 }
 
 .thumbnail:hover {
     opacity: 1;
+    transform: scale(1.1);
+    z-index: 100;
+    box-shadow: 0 .4rem 1rem rgba(0, 0, 0, .5);
 }
 
 .thumbnails {

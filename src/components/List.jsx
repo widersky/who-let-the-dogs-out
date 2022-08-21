@@ -5,6 +5,8 @@ import { v4 as uuidv4 } from 'uuid';
 // Components
 import ListItem from "./ListItem";
 import Modal from "./Modal";
+import Divider from "./Divider";
+import Search from "./Search";
 
 const List = () => {
     const [ data, setData ] = useState(null);
@@ -12,6 +14,8 @@ const List = () => {
     const [ selectedBreed, setSelectedBreed ] = useState(null);
     const [ randomBreedImages, setRandomBreedImages ] = useState(null);
     const [ modalImage, setModalimage ] = useState(null);
+    const [ search, setSearch ] = useState('');
+    const [ indexLetter, setIndexLetter ] = useState('');
 
 
     // Get every breed available
@@ -51,6 +55,10 @@ const List = () => {
     // Get random dog image from randomBreedImages state
     const randomizeImage = () => setModalimage(randomBreedImages[Math.floor(Math.random() * randomBreedImages.length)]);
 
+    useEffect(() => {
+        randomBreedImages && randomizeImage();
+    }, [randomBreedImages]);
+
 
     // Get breeds on beginning
     useEffect(() => {
@@ -63,43 +71,44 @@ const List = () => {
         selectedBreed !== null && getBreedImages();
     }, [selectedBreed]);
 
-    
-    // Get random breed image
-    useEffect(() => {
-        randomBreedImages && randomizeImage();
-    }, [randomBreedImages]);
-
 
     // Render markup
     return (
         <div className="breedsList">
 
-            {data && Object.keys(data).map((breed) => (
-                <React.Fragment key={uuidv4()}>
+            <Search onChange={(value) => setSearch(value)} />
+
+            {data && Object.keys(data)
+                .filter((breed) => breed.toUpperCase().includes(search.toUpperCase()))
+                .map((breed) => (
+                <div className="listItemWrapper" key={uuidv4()}>
                     <ListItem name={breed} key={uuidv4()} onClick={() => {
                         setSelectedBreed(breed);
                         setModalOpened(true);
                     }} />
 
+                    {data[breed].length > 0 && <Divider />}
+
                     {/* Sub-breeds */}
-                    {data[breed] && data[breed].map((subBreed) => (
-                        <ListItem sub key={uuidv4()} name={subBreed} onClick={() => {
-                            setSelectedBreed(`${breed}/${subBreed}`);
-                            setModalOpened(true);
-                        }} />
-                    ))}
-                </React.Fragment>
+                    <div className="listSubItemsWrapper">
+                        {data[breed] && data[breed].map((subBreed) => (
+                            <ListItem sub key={uuidv4()} name={subBreed} onClick={() => {
+                                setSelectedBreed(`${breed}/${subBreed}`);
+                                setModalOpened(true);
+                            }} />
+                        ))}
+                    </div>
+                </div>
             ))}
 
-            <Modal opened={modalOpened} onCloseReq={() => setModalOpened(false)}>
-                <div className="currentImage">
-                    <img src={modalImage} alt="" />
-                </div>
-
-                <div className="thumbnails">
-                    {randomBreedImages.map((image) => (<div className="thumbnail" onClick={() => setModalimage(image)}><img src={image} alt="" /></div>))}
-                </div>
-            </Modal>
+            <Modal 
+                opened={modalOpened} 
+                onCloseReq={() => setModalOpened(false)} 
+                onImageChangeReq={(image) => setModalimage(image)}
+                randomBreedImages={randomBreedImages}
+                modalImage={modalImage}
+                title={selectedBreed}
+            />
 
         </div>
     )

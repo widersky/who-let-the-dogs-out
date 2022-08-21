@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion"
+import { v4 as uuidv4 } from 'uuid';
 
 const CloseIcon = () => {
     return (
@@ -9,7 +10,7 @@ const CloseIcon = () => {
     )
 }
 
-const Modal = ({ opened, onCloseReq, children }) => {
+const Modal = ({ opened, onCloseReq, title, modalImage, randomBreedImages, onImageChangeReq }) => {
     return (
         <AnimatePresence exitBeforeEnter>
             {opened && (
@@ -26,12 +27,21 @@ const Modal = ({ opened, onCloseReq, children }) => {
                         exit={{ translateY: 20 }}
                     >
                         <div className="modalBodyHeader">
+                            <div className="modalBodyHeaderTitle">{title}</div>
                             <button onClick={onCloseReq}>
                                 <CloseIcon />
                             </button>
                         </div>
 
-                        <div className="modalBodyContent">{children}</div>
+                        <div className="modalBodyContent">
+                            <div className="currentImage">
+                                <img src={modalImage} alt={title} />
+                            </div>
+
+                            <div className="thumbnails">
+                                {randomBreedImages && randomBreedImages.map((image) => (<div className="thumbnail" key={uuidv4()} onClick={() => onImageChangeReq(image)}><img src={image} alt={title} /></div>))}
+                            </div>
+                        </div>
                     </motion.div>
                 </motion.div>
             )}
