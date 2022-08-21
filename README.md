@@ -1,3 +1,13 @@
+# Before party
+
+I've used Yarn here so if you are using Node 16.10+ and need to play with this piece of code you need to enable Yarn by invoking command:
+
+`corepack enable`
+
+After this every `yarn ...` command should work.
+
+If you're on older Node version, step on this path [here](https://yarnpkg.com/getting-started/install).
+
 # How to
 
 1. `yarn`
